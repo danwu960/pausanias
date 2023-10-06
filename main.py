@@ -1,5 +1,6 @@
 # This is a sample Python script.
 from typing import Any
+
 import pandas as pd
 from pandas import DataFrame
 
@@ -7,7 +8,6 @@ from pandas import DataFrame
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows,
 # actions, and settings.
-
 
 def read_file(file_path="~/Documents/202308-202406/Pausania/data/basic.csv"):
 
@@ -31,7 +31,7 @@ def read_xlsx(file_path, the_sheet="Sheet1"):
         df_annotation.fillna('', inplace=True)
 
     return df_annotation
-def print_file(df):
+def print_file(df: object) -> object:
     columns = df.columns
     print(df.dtypes)
     for col in columns:
@@ -44,5 +44,27 @@ if __name__ == '__main__':
     #df = read_file()
     file = "~/Documents/202308-202406/Pausania/data/OUTPUT 9Sept.xlsx"
     sheet = "RecogitoAnnotOutput2023-09-09"
-    df = read_xlsx(file, sheet)
+    # df = read_xlsx(file, sheet)
+    df = read_xlsx(file)
     print_file(df)
+    print(df.shape)
+    '''
+    df["LAT"] = df["LAT"].apply(lambda x: 0.0 if not x else float(x))
+    df["LNG"] = df["LNG"].apply(lambda x: 0.0 if not x else float(x))
+    df["Lat2"] = df["LatLong2"].apply(lambda x: 0.0 if not x else
+        float(x.split(",")[0]))
+    df["Lng2"] = df["LatLong2"].apply(lambda x: 0.0 if not x else float(x.split(
+        ",")[1]))
+    df["DerLat"] = df["DerivedLatLng"].apply(lambda x: 0.0 if not x else
+    float(x.split(",")[0]))
+    df["DerLng"] = df["DerivedLatLng"].apply(lambda x: 0.0 if not x else
+    float(x.split(",")[1]))
+    print(df.shape)
+    for type in df["TYPE"].unique():
+        print("****"+type+"*****")
+        print(df[df["TYPE"] == type].shape)
+        print(df[df["TYPE"] == type].head())
+    '''
+    # check the value in DerivedLatLng
+    # print(df["DerivedLatLng"].unique())
+    # print(df["TTlate"].unique())
